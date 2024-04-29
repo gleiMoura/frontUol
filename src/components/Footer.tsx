@@ -5,21 +5,21 @@ import { LuSend } from "react-icons/lu";
 export const FooterComponent: React.FC = () => {
     return (
         <>
-            <FooterMain>
+            <MainFooter>
                 <TextInput rows={4} cols={10} placeholder="Esvreva aqui...">
 
                 </TextInput>
                 <SendButton>
                     <LuSend size={30} />
                 </SendButton>
-            </FooterMain>
+            </MainFooter>
         </>
     )
 };
 
-const FooterMain = styled.footer`
+const MainFooter = styled.footer`
     width: 100%;
-    height: 10%;
+    height: 60px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.20) inset;
     background-color: white;
 
@@ -31,6 +31,7 @@ const FooterMain = styled.footer`
 const TextInput = styled.textarea`
     width: 50%;
     height: 40%;
+    font-size: 1rem;
     border: none;
     outline: none;
     resize: none;
