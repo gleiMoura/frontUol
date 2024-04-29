@@ -18,7 +18,7 @@ export const HeaderComponent: React.FC = () => {
 
 const MainHeader = styled.header`
     width: 100%;
-    height: 10%;
+    height: 60px;
     background-color: white;
 
     display: flex;
