@@ -1,5 +1,8 @@
 export interface messageType {
-    messageTime: string,
-    participantMessage: string,
-    fromOrTo: string
+    _id?: string,
+    time?: string,
+    text?: string,
+    from?: string,
+    to?: string,
+    type?: string
 }
