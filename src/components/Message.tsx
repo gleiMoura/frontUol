@@ -1,19 +1,16 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { messageType } from "../interfaces/messageInterface";
 
-interface messageType {
-    messageTime: string,
-    participantMessage: string,
-    fromOrTo: string
-}
-
-export const Message: FC<messageType> = ({ messageTime, participantMessage, fromOrTo }) => {
+export const Message: FC<messageType> = ({ time, text, from, to }) => {
     return (
         <MessageComponent>
             <p>
-                <span className="time">{messageTime}</span> {``}
-                <span className="from_or_to">{fromOrTo}</span> {` `}
-                <span className="message">{participantMessage}</span>
+                <span className="time">{time}</span> {` `}
+                <span className="from_or_to">{from}</span> {` `}
+                <span className="message"> para </span>
+                <span className="from_or_to">{to}</span> {`: `}
+                <span className="message">{text}</span>
             </p>
         </MessageComponent>
     )
@@ -22,6 +19,7 @@ export const Message: FC<messageType> = ({ messageTime, participantMessage, from
 const MessageComponent = styled.div`
     width: 100%;
     height: 50px;
+    margin-top: 10px;
     font-size: 2,5vh;
     background-color: #DCDCDC;
 
