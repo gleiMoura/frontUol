@@ -22,8 +22,8 @@ export const useFetchUsers = () => {
             }
         };
 
-        fetchData();
-    }, []);
+        setInterval(fetchData, 3000)
+    }, [messages]);
 
     return { messages, isLoading, error }
 }
