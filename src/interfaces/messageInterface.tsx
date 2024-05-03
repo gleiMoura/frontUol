@@ -4,5 +4,5 @@ export interface messageType {
     text?: string,
     from?: string,
     to?: string,
-    type?: string
+    type?: 'status' | 'message' | 'private-message'
 }
