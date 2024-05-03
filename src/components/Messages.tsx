@@ -26,6 +26,7 @@ export const MessagesComponent: FC = () => {
                                 text={message.text}
                                 from={message.from}
                                 to={message.to}
+                                type={message.type}
                             />
                         )
                     })}

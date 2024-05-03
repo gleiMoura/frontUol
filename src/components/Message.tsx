@@ -2,26 +2,33 @@ import { FC } from "react";
 import styled from "styled-components";
 import { messageType } from "../interfaces/messageInterface";
 
-export const Message: FC<messageType> = ({ time, text, from, to }) => {
+export const Message: FC<messageType> = ({ time, text, from, to, type }) => {
     return (
-        <MessageComponent>
+        <MessageComponent type={type}>
             <p>
                 <span className="time">{time}</span> {` `}
                 <span className="from_or_to">{from}</span> {` `}
-                <span className="message"> para </span>
-                <span className="from_or_to">{to}</span> {`: `}
+                {type === "status" ? "" :
+                    <>
+                        <span className="message"> para </span>
+                        <span className="from_or_to">{to}</span> {`: `}
+                    </>}
                 <span className="message">{text}</span>
             </p>
         </MessageComponent>
     )
 };
 
-const MessageComponent = styled.div`
+const MessageComponent = styled.div<messageType>`
     width: 100%;
     height: 50px;
     margin-top: 10px;
     font-size: 2,5vh;
-    background-color: #DCDCDC;
+    background-color: ${props => {
+        return props.type === "status" ? '#DCDCDC' :
+            props.type === "message" ? '#FFFFFF' :
+                props.type === "private-message" ? '#FFDEDE' : '#fff';
+    }};
 
     display: flex;
     justify-content: start;
@@ -30,19 +37,19 @@ const MessageComponent = styled.div`
     box-sizing: border-box;  
 
     .time{
-        color: #AAA;
-    }
+    color: #AAA;
+}
 
     .message {
-        color: #000;
-        font-family: 'Roboto';
-        font-weight: 400;
-    }
+    color: #000;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
 
     .from_or_to {
-        color: #000;
-        font-family: 'Roboto';
-        font-weight: 600;
-    }
+    color: #000;
+    font-family: 'Roboto';
+    font-weight: 600;
+}
 `;
 
