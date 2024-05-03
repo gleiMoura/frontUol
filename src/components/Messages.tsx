@@ -8,6 +8,8 @@ import { SkeletonMessages } from "./SkeletonMessages";
 export const MessagesComponent: FC = () => {
     const { messages, isLoading, error } = useFetchUsers();
 
+    if (error) console.log(error)
+
     if (isLoading) {
         return (
             <MainMessages>
