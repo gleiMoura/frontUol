@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { useNameFromUser } from './contexts/UserContext';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { InsertNamePage } from './pages/InsertNamePage';
