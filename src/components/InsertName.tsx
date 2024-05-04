@@ -1,27 +1,42 @@
 import styled from "styled-components";
-import { FC, ChangeEvent } from "react";
+import { FC, ChangeEvent, KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNameFromUser } from "../contexts/UserContext";
+import { useErrorMessage } from "../contexts/ErrorContext";
+import { StyleSheetManager } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
-    const { setName } = useNameFromUser();
+    const { name, setName } = useNameFromUser();
+    const { errorText } = useErrorMessage();
+    const text = errorText;
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
     };
 
+    const handleEnterKey = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && name) {
+            navigate("Home")
+        }
+    };
+
     return (
         <>
             <MainInsertName>
-                <Section>
-                    <InsertNameInput placeholder="Qual é o seu nome?" onChange={handleInputchange} />
+                <StyleSheetManager shouldForwardProp={prop => isPropValid(prop) && prop !== 'error'}>
+                    <Section text={text}>
+                        <InsertNameInput placeholder="Qual é o seu nome?" onKeyDown={handleEnterKey} onChange={handleInputchange} />
 
-                    <p>Deve conter apenas letras e números.</p>
-                    <p>Sem acentos.</p>
+                        {errorText ? <p>{text}</p> : <>
+                            <p>Deve conter apenas letras e números.</p>
+                            <p>Sem acentos.</p>
+                        </>}
 
-                    <Button onClick={() => { navigate("/Home") }}>Entrar no Chat</Button>
-                </Section>
+                        <Button onClick={() => { navigate("/Home") }} disabled={!name}>Entrar no Chat</Button>
+                    </Section>
+                </StyleSheetManager>
             </MainInsertName>
         </>
     )
@@ -35,11 +50,12 @@ const MainInsertName = styled.div`
     align-items: center;
 `;
 
-const Section = styled.div`
+const Section = styled.div<{ text: string }>`
     width:50%;
     height: 50%;
     min-width: 300px;
     max-width: 500px;
+    padding: 15px;
     background-color: #FFDEDE;
     border-radius: 10px;
 
@@ -47,9 +63,9 @@ const Section = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    color: black;
     font-family: 'Roboto';
+    color: ${(props) => props.text ? "red" : "black"};
+    text-align: center;
 `;
 
 const InsertNameInput = styled.input`
