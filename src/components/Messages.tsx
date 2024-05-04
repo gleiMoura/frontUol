@@ -1,12 +1,14 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { useNameFromUser } from "../contexts/UserContext";
 
 import { Message } from "./Message";
 import { useFetchUsers } from "../hooks/useFetchMessages";
 import { SkeletonMessages } from "./SkeletonMessages";
 
 export const MessagesComponent: FC = () => {
-    const { messages, isLoading, error } = useFetchUsers();
+    const { name } = useNameFromUser();
+    const { messages, isLoading, error } = useFetchUsers(name);
 
     if (error) console.log(error)
 

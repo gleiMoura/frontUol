@@ -3,7 +3,7 @@ import { messageType } from "../interfaces/messageInterface";
 import { fetchMessages } from "../services/messageService";
 import { AxiosResponse } from "axios";
 
-export const useFetchUsers = () => {
+export const useFetchUsers = (user: string) => {
     const [messages, setMessages] = useState<messageType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -11,7 +11,7 @@ export const useFetchUsers = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response: AxiosResponse = await fetchMessages();
+                const response: AxiosResponse = await fetchMessages(user);
                 setMessages(response.data);
                 setError(null);
             } catch (e) {
