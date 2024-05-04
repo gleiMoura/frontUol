@@ -5,4 +5,9 @@ export interface messageType {
     from?: string,
     to?: string,
     type?: 'status' | 'message' | 'private-message'
+};
+
+export interface userType {
+    name: string | "";
+    setName: (name: string) => void;
 }
