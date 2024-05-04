@@ -8,6 +8,11 @@ export interface messageType {
 };
 
 export interface userType {
-    name: string | "";
+    name: string;
     setName: (name: string) => void;
+}
+
+export interface errorType {
+    errorText: string;
+    setErrorText: (errorText: string) => void;
 }
