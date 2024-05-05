@@ -10,7 +10,6 @@ export const InsertName: FC = () => {
     const navigate = useNavigate();
     const { name, setName } = useNameFromUser();
     const { errorText } = useErrorMessage();
-    const text = errorText;
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
@@ -26,10 +25,10 @@ export const InsertName: FC = () => {
         <>
             <MainInsertName>
                 <StyleSheetManager shouldForwardProp={prop => isPropValid(prop) && prop !== 'error'}>
-                    <Section text={text}>
+                    <Section errortext={errorText}>
                         <InsertNameInput placeholder="Qual é o seu nome?" onKeyDown={handleEnterKey} onChange={handleInputchange} />
 
-                        {errorText ? <p>{text}</p> : <>
+                        {errorText ? <p>{errorText}</p> : <>
                             <p>Deve conter apenas letras e números.</p>
                             <p>Sem acentos.</p>
                         </>}
@@ -50,7 +49,7 @@ const MainInsertName = styled.div`
     align-items: center;
 `;
 
-const Section = styled.div<{ text: string }>`
+const Section = styled.div<{ errortext: string }>`
     width:50%;
     height: 50%;
     min-width: 300px;
@@ -64,7 +63,7 @@ const Section = styled.div<{ text: string }>`
     justify-content: center;
     align-items: center;
     font-family: 'Roboto';
-    color: ${(props) => props.text ? "red" : "black"};
+    color: ${(props) => props.errortext ? "red" : "black"};
     text-align: center;
 `;
 
