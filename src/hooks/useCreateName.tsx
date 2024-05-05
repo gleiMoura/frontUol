@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createUser } from "../services/participantService";
 
 export const useCreateName = (name: string | null) => {
     const [loadingName, setLoadingName] = useState(true);
     const [errorName, setErrorName] = useState<string | null>(null);
+    const [isCreated, setIsCreated] = useState(false);
 
-    const create = async () => {
+    const create = useCallback(async () => {
+        if (isCreated || name === null) return;
+        setIsCreated(true);
+
         try {
             await createUser(name);
         } catch (e: any) {
@@ -13,11 +17,13 @@ export const useCreateName = (name: string | null) => {
         } finally {
             setLoadingName(false);
         }
-    };
+    }, []);
+
+
 
     useEffect(() => {
         create();
-    }, []);
+    }, [create]);
 
     return { loadingName, errorName }
 };
