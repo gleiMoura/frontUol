@@ -1,5 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useErrorMessage } from "../contexts/ErrorContext";
 import { useNameFromUser } from "../contexts/UserContext";
 
 import { Message } from "./Message";
@@ -7,10 +9,16 @@ import { useFetchUsers } from "../hooks/useFetchMessages";
 import { SkeletonMessages } from "./SkeletonMessages";
 
 export const MessagesComponent: FC = () => {
+    const navigate = useNavigate();
     const { name } = useNameFromUser();
+    const { setErrorText } = useErrorMessage();
     const { messages, loadingMessages, error } = useFetchUsers(name);
 
-    if (error) console.log(error)
+    if (error) {
+        console.log(error);
+        setErrorText(error);
+        navigate("/")
+    };
 
     if (loadingMessages) {
         return (
