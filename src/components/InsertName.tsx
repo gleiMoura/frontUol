@@ -25,7 +25,7 @@ export const InsertName: FC = () => {
         <>
             <MainInsertName>
                 <StyleSheetManager shouldForwardProp={prop => isPropValid(prop) && prop !== 'error'}>
-                    <Section errortext={errorText}>
+                    <Section errortextcolor={errorText}>
                         <InsertNameInput
                             placeholder="Qual é o seu nome?"
                             onKeyDown={handleEnterKey}
@@ -56,7 +56,7 @@ const MainInsertName = styled.div`
     align-items: center;
 `;
 
-const Section = styled.div<{ errortext: string }>`
+const Section = styled.div<{ errortextcolor: string }>`
     width:50%;
     height: 50%;
     min-width: 300px;
@@ -70,7 +70,7 @@ const Section = styled.div<{ errortext: string }>`
     justify-content: center;
     align-items: center;
     font-family: 'Roboto';
-    color: ${(props) => props.errortext ? "red" : "black"};
+    color: ${(props) => props.errortextcolor ? "red" : "black"};
     text-align: center;
 `;
 
