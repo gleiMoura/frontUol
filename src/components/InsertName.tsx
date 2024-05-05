@@ -26,14 +26,21 @@ export const InsertName: FC = () => {
             <MainInsertName>
                 <StyleSheetManager shouldForwardProp={prop => isPropValid(prop) && prop !== 'error'}>
                     <Section errortext={errorText}>
-                        <InsertNameInput placeholder="Qual é o seu nome?" onKeyDown={handleEnterKey} onChange={handleInputchange} />
-
+                        <InsertNameInput
+                            placeholder="Qual é o seu nome?"
+                            onKeyDown={handleEnterKey}
+                            onChange={handleInputchange}
+                        />
                         {errorText ? <p>{errorText}</p> : <>
                             <p>Deve conter apenas letras e números.</p>
                             <p>Sem acentos.</p>
                         </>}
-
-                        <Button onClick={() => { navigate("/Home") }} disabled={!name}>Entrar no Chat</Button>
+                        <Button
+                            onClick={() => { navigate("/Home") }}
+                            disabled={!name}
+                        >
+                            Entrar no Chat
+                        </Button>
                     </Section>
                 </StyleSheetManager>
             </MainInsertName>
