@@ -1,23 +1,30 @@
 import styled from "styled-components";
 import { FC, ChangeEvent, KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { useNameFromUser } from "../contexts/UserContext";
 import { useErrorMessage } from "../contexts/ErrorContext";
 import { StyleSheetManager } from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
+import { useCreateName } from "../hooks/useCreateName";
+import { useNameFromUser } from "../contexts/UserContext";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
     const { name, setName } = useNameFromUser();
-    const { errorText } = useErrorMessage();
+    const { errorText, setErrorText } = useErrorMessage();
+    const { loadingName, errorName, create } = useCreateName()
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
     };
 
-    const handleEnterKey = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter' && name) {
-            navigate("Home")
+    const handleEnterKey = async (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            await create(name);
+            if (!errorName) {
+                navigate("/home")
+            } else {
+                setErrorText(errorName)
+            }
         }
     };
 
@@ -36,10 +43,13 @@ export const InsertName: FC = () => {
                             <p>Sem acentos.</p>
                         </>}
                         <Button
-                            onClick={() => { navigate("/Home") }}
-                            disabled={!name}
+                            onClick={async () => {
+                                await create(name);
+                                navigate("/home")
+                            }}
+                            disabled={loadingName}
                         >
-                            Entrar no Chat
+                            {loadingName ? 'Carregando...' : 'Entrar no Chat'}
                         </Button>
                     </Section>
                 </StyleSheetManager>
