@@ -1,16 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { createUser } from "../services/participantService";
 
-export const useCreateName = (name: string | null) => {
-    const [loadingName, setLoadingName] = useState(true);
+export const useCreateName = () => {
+    const [loadingName, setLoadingName] = useState(false);
     const [errorName, setErrorName] = useState<string | null>(null);
-    const [isCreated, setIsCreated] = useState(false);
 
-    const create = useCallback(async () => {
-        if (isCreated || name === null) return;
-        setIsCreated(true);
-
+    const create = useCallback(async (name: string | null) => {
         try {
+            setLoadingName(true)
             await createUser(name);
         } catch (e: any) {
             setErrorName(e?.response?.data[0].message || e.response.data || 'Erro desconhecido. Tente novamente mais tarde!');
@@ -19,11 +16,5 @@ export const useCreateName = (name: string | null) => {
         }
     }, []);
 
-
-
-    useEffect(() => {
-        create();
-    }, [create]);
-
-    return { loadingName, errorName }
+    return { loadingName, errorName, create }
 };
