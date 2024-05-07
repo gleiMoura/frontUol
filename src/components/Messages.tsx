@@ -2,17 +2,17 @@ import { FC } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useErrorMessage } from "../contexts/ErrorContext";
-import { useNameFromUser } from "../contexts/UserContext";
 
 import { Message } from "./Message";
 import { useFetchUsers } from "../hooks/useFetchMessages";
 import { SkeletonMessages } from "./SkeletonMessages";
+import useLocalStorage from "../hooks/useLocalSorage";
 
 export const MessagesComponent: FC = () => {
     const navigate = useNavigate();
-    const { name } = useNameFromUser();
     const { setErrorText } = useErrorMessage();
-    const { messages, loadingMessages, error } = useFetchUsers(name);
+    const { value } = useLocalStorage("name");
+    const { messages, loadingMessages, error } = useFetchUsers(value);
 
     if (error) {
         console.log(error);
