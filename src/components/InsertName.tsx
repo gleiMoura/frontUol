@@ -1,26 +1,32 @@
 import styled from "styled-components";
-import { FC, ChangeEvent, KeyboardEvent } from "react";
+import { FC, ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useErrorMessage } from "../contexts/ErrorContext";
 import { StyleSheetManager } from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
 import { useCreateName } from "../hooks/useCreateName";
-import { useNameFromUser } from "../contexts/UserContext";
+import useLocalStorage from "../hooks/useLocalSorage";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
-    const { name, setName } = useNameFromUser();
     const { errorText, setErrorText } = useErrorMessage();
-    const { loadingName, errorName, create } = useCreateName()
+    const { loadingName, errorName, create } = useCreateName();
+    const [name, setName] = useState("");
+    const { setDataInLocalStorage } = useLocalStorage("");
+
+    useEffect(() => {
+        setDataInLocalStorage("name", "");
+    }, []);
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value)
+        setName(event.target.value);
     };
 
     const handleEnterKey = async (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             await create(name);
             if (!errorName) {
+                setDataInLocalStorage("name", name);
                 navigate("/home")
             } else {
                 setErrorText(errorName)
@@ -35,6 +41,7 @@ export const InsertName: FC = () => {
                     <Section errortextcolor={errorText}>
                         <InsertNameInput
                             placeholder="Qual é o seu nome?"
+
                             onKeyDown={handleEnterKey}
                             onChange={handleInputchange}
                         />
@@ -45,6 +52,7 @@ export const InsertName: FC = () => {
                         <Button
                             onClick={async () => {
                                 await create(name);
+                                setDataInLocalStorage("name", name);
                                 navigate("/home")
                             }}
                             disabled={loadingName}
