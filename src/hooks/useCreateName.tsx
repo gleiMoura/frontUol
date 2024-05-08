@@ -8,7 +8,7 @@ export const useCreateName = () => {
 
     const create = useCallback(async (name: string | null) => {
         setTimeout(() => {
-            setErrorText("Erro inesperado. Tente novamente mais tarde!");
+            setErrorText("Sevidor inativo. Tente novamente mais tarde!");
             setLoadingName(false);
         }, 10000);
 
