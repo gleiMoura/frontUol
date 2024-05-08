@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useErrorMessage } from "../contexts/ErrorContext";
@@ -13,11 +13,20 @@ export const MessagesComponent: FC = () => {
     const { setErrorText } = useErrorMessage();
     const { value: user } = useLocalStorage("name");
     const { messages, loadingMessages, error } = useFetchUsers(user);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     if (error || !user) {
         setErrorText(error ?? "Ocorreu um erro desconhecido!");
         navigate("/")
     };
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages])
 
     if (loadingMessages) {
         return (
@@ -41,6 +50,7 @@ export const MessagesComponent: FC = () => {
                             />
                         )
                     })}
+                    <div ref={messagesEndRef} />
                 </MainMessages>
             </>
         )
