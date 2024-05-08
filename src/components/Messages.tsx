@@ -11,12 +11,11 @@ import useLocalStorage from "../hooks/useLocalSorage";
 export const MessagesComponent: FC = () => {
     const navigate = useNavigate();
     const { setErrorText } = useErrorMessage();
-    const { value } = useLocalStorage("name");
-    const { messages, loadingMessages, error } = useFetchUsers(value);
+    const { value: user } = useLocalStorage("name");
+    const { messages, loadingMessages, error } = useFetchUsers(user);
 
-    if (error) {
-        console.log(error);
-        setErrorText(error);
+    if (error || !user) {
+        setErrorText(error ?? "Ocorreu um erro desconhecido!");
         navigate("/")
     };
 
