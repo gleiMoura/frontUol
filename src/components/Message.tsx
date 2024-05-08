@@ -19,6 +19,7 @@ export const Message: FC<messageType> = ({ time, text, from, to, type }) => {
     )
 };
 
+//styled-components
 const MessageComponent = styled.div<messageType>`
     width: 100%;
     height: 50px;

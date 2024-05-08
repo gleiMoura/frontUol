@@ -1,11 +1,13 @@
+//react
 import styled from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
 import { FC, ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
+import { StyleSheetManager } from "styled-components";
+//hooks
+import useLocalStorage from "../hooks/useLocalSorage";
 import { useNavigate } from "react-router-dom";
 import { useErrorMessage } from "../contexts/ErrorContext";
-import { StyleSheetManager } from "styled-components";
-import isPropValid from "@emotion/is-prop-valid";
 import { useCreateName } from "../hooks/useCreateName";
-import useLocalStorage from "../hooks/useLocalSorage";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
@@ -66,6 +68,7 @@ export const InsertName: FC = () => {
     )
 };
 
+//styled-components
 const MainInsertName = styled.div`
     width: 100%;
     height: 80vh;

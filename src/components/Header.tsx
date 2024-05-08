@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { IoPeople } from "react-icons/io5";
-import logo from "../assets/images/logo.png";
 import React from "react";
+import styled from "styled-components";
+import logo from "../assets/images/logo.png";
+import { IoPeople } from "react-icons/io5";
 
 export const HeaderComponent: React.FC = () => {
     return (

@@ -48,6 +48,7 @@ export const MessagesComponent: FC = () => {
     }
 };
 
+//styled-components
 const MainMessages = styled.section`
     width: 100%;
     height: 80%;
