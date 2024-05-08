@@ -1,5 +1,5 @@
 const useLocalStorage = (key: any) => {
-    const setDataInLocalStorage = (key: string, value: any) => {
+    const setDataInLocalStorage = (key: string, value: string | object) => {
         try {
             const serializedValue = JSON.stringify(value);
             window.localStorage.setItem(key, serializedValue);
