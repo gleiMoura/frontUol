@@ -11,8 +11,8 @@ import { useCreateName } from "../hooks/useCreateName";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
-    const { errorText, setErrorText } = useErrorMessage();
-    const { loadingName, errorName, create } = useCreateName();
+    const { errorText } = useErrorMessage();
+    const { loadingName, create } = useCreateName();
     const [name, setName] = useState("");
     const { setDataInLocalStorage } = useLocalStorage("");
 
@@ -27,12 +27,9 @@ export const InsertName: FC = () => {
     const handleEnterKey = async (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             await create(name);
-            if (!errorName) {
+            !errorText &&
                 setDataInLocalStorage("name", name);
-                navigate("/home")
-            } else {
-                setErrorText(errorName)
-            }
+            navigate("/home");
         }
     };
 
@@ -43,9 +40,9 @@ export const InsertName: FC = () => {
                     <Section errortextcolor={errorText}>
                         <InsertNameInput
                             placeholder="Qual é o seu nome?"
-
                             onKeyDown={handleEnterKey}
                             onChange={handleInputchange}
+                            disabled={loadingName}
                         />
                         {errorText ? <p>{errorText}</p> : <>
                             <p>Deve conter apenas letras e números.</p>
