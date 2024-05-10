@@ -34,7 +34,7 @@ export const MessagesComponent: FC = () => {
     useEffect(() => {
         const updateUser = setInterval(async () => {
             try {
-                const response = await updateParcipant(user);
+                await updateParcipant(user);
             } catch (e) {
                 setErrorText("Não foi possível manter a conexão.");
                 navigate("/")
