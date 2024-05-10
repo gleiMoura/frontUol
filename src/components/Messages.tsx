@@ -1,12 +1,15 @@
-import { FC, useEffect, useRef } from "react";
+//react
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { FC, useEffect, useRef } from "react";
+//hooks and functions
 import { useErrorMessage } from "../contexts/ErrorContext";
-
-import { Message } from "./Message";
+import { useNavigate } from "react-router-dom";
 import { useFetchUsers } from "../hooks/useFetchMessages";
-import { SkeletonMessages } from "./SkeletonMessages";
 import useLocalStorage from "../hooks/useLocalSorage";
+import { updateParcipant } from "../services/statusService";
+//components
+import { Message } from "./Message";
+import { SkeletonMessages } from "./SkeletonMessages";
 
 export const MessagesComponent: FC = () => {
     const navigate = useNavigate();
@@ -26,7 +29,20 @@ export const MessagesComponent: FC = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages])
+    }, [messages]);
+
+    useEffect(() => {
+        const updateUser = setInterval(async () => {
+            try {
+                const response = await updateParcipant(user);
+            } catch (e) {
+                setErrorText("Não foi possível manter a conexão.");
+                navigate("/")
+            }
+        }, 5000);
+
+        return () => clearInterval(updateUser);
+    }, [user])
 
     if (loadingMessages) {
         return (
