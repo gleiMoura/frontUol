@@ -50,7 +50,7 @@ export const InsertName: FC = () => {
                                 setDataInLocalStorage("name", name);
                                 navigate("/home")
                             }}
-                            disabled={loadingName}
+                            disabled={loadingName || !name}
                         >
                             {loadingName ? 'Carregando...' : 'Entrar no Chat'}
                         </Button>
