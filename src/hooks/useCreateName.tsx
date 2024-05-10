@@ -11,7 +11,8 @@ export const useCreateName = () => {
             setLoadingName(true)
             await createUser(name);
         } catch (e: any) {
-            setErrorText(e?.response?.data[0].message || e.response.data || 'Erro inesperado. Tente novamente mais tarde!');
+            console.log("erro", e)
+            setErrorText(e?.response?.data[0].message || e?.response?.data || 'Erro inesperado. Tente novamente mais tarde!');
         } finally {
             setLoadingName(false);
         }
