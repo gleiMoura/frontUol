@@ -7,11 +7,6 @@ export const useCreateName = () => {
     const { setErrorText } = useErrorMessage();
 
     const create = useCallback(async (name: string | null) => {
-        setTimeout(() => {
-            setErrorText("Sevidor inativo. Tente novamente mais tarde!");
-            setLoadingName(false);
-        }, 10000);
-
         try {
             setLoadingName(true)
             await createUser(name);
