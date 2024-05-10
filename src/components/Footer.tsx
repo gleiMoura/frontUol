@@ -6,9 +6,7 @@ export const FooterComponent: React.FC = () => {
     return (
         <>
             <MainFooter>
-                <TextInput rows={4} cols={10} placeholder="Esvreva aqui...">
-
-                </TextInput>
+                <TextInput rows={4} cols={10} placeholder="Esvreva aqui..." />
                 <SendButton>
                     <LuSend size={30} />
                 </SendButton>
