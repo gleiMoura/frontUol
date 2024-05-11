@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { messageType } from "../interfaces/messageInterface";
 import { fetchMessages } from "../services/messageService";
 import { AxiosResponse } from "axios";
+import { useErrorMessage } from "../contexts/ErrorContext";
 
-export const useFetchUsers = (user: string) => {
+export const useFetchMessages = (user: string) => {
     const [messages, setMessages] = useState<messageType[]>([]);
     const [loadingMessages, setLoadingMessages] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { setErrorText } = useErrorMessage();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response: AxiosResponse = await fetchMessages(user);
                 setMessages(response.data);
-                setError(null);
             } catch (e) {
                 console.log(e)
-                setError('Erro ao carregar dados!');
+                setErrorText('Erro ao carregar dados!');
                 setMessages([]);
             } finally {
                 setLoadingMessages(false);
@@ -26,5 +26,5 @@ export const useFetchUsers = (user: string) => {
         setInterval(fetchData, 3000)
     }, []);
 
-    return { messages, loadingMessages, error }
+    return { messages, loadingMessages }
 }
