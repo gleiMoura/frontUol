@@ -16,15 +16,6 @@ export const MessagesComponent: FC = () => {
     const { errorText, setErrorText } = useErrorMessage();
     const { value: user } = useLocalStorage("name");
     const { messages, loadingMessages } = useFetchMessages(user);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    };
-
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
 
     useEffect(() => {
         if (errorText === "Erro ao carregar dados!") {
@@ -53,7 +44,7 @@ export const MessagesComponent: FC = () => {
         return (
             <>
                 <MainMessages>
-                    {messages.map((message) => {
+                    {[...messages].reverse().map((message) => {
                         return (
                             <Message
                                 key={message._id}
@@ -65,7 +56,6 @@ export const MessagesComponent: FC = () => {
                             />
                         )
                     })}
-                    <div ref={messagesEndRef} />
                 </MainMessages>
             </>
         )
@@ -81,4 +71,7 @@ const MainMessages = styled.section`
     box-shadow: 0 2px 4px rgba(0,0,0,0.20) inset;
     background-color: #E5E5E5;
     overflow-y: scroll;
-`;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    `;
