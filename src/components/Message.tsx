@@ -38,8 +38,9 @@ const MessageComponent = styled.div<messageType>`
     justify-content: start;
     align-items: center;
     padding: 10px;
-    box-sizing: border-box;  
-
+    box-sizing: border-box;
+    flex: none;
+    
     .time{
         color: #AAA;
         margin-right: 15px;
