@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import styled from "styled-components";
 import { LuSend } from "react-icons/lu";
 import { sendMessage } from "../services/messageService";
@@ -10,7 +10,7 @@ export const FooterComponent: FC = () => {
     const [messageValue, setMessageValue] = useState("");
     const { value: user }: { value: string } = useLocalStorage("name");
     const { setErrorText } = useErrorMessage();
-    
+
     const genericMessage: messageType = {
         to: "todos",
         type: "message",
