@@ -33,7 +33,7 @@ export const MessagesComponent: FC = () => {
     }, [errorText])
 
     useEffect(() => {
-        const updateUser = setInterval(async () => {
+        setInterval(async () => {
             try {
                 await updateParcipant(user);
             } catch (e) {
@@ -41,8 +41,6 @@ export const MessagesComponent: FC = () => {
                 navigate("/")
             }
         }, 5000);
-
-        return () => clearInterval(updateUser);
     }, [user])
 
     if (loadingMessages) {
