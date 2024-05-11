@@ -6,7 +6,6 @@ import { UserProvider } from './contexts/UserContext';
 import { ErrorProvider } from './contexts/ErrorContext';
 
 export const App: FC = () => {
-
     return (
         <BrowserRouter>
             <ErrorProvider>
