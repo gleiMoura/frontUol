@@ -9,7 +9,7 @@ export const fetchMessages = async (user: string) => {
     };
 
     return (
-        await api.get('/messages/?limit=40', config)
+        await api.get('/messages/?limit=20', config)
     )
 };
 
