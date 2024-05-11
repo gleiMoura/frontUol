@@ -1,13 +1,47 @@
-import React from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { LuSend } from "react-icons/lu";
+import { sendMessage } from "../services/messageService";
+import useLocalStorage from "../hooks/useLocalSorage";
+import { messageType } from "../interfaces/messageInterface";
+import { useErrorMessage } from "../contexts/ErrorContext";
 
-export const FooterComponent: React.FC = () => {
+export const FooterComponent: FC = () => {
+    const [messageValue, setMessageValue] = useState("");
+    const { value: user }: { value: string } = useLocalStorage("name");
+    const { setErrorText } = useErrorMessage();
+    
+    const genericMessage: messageType = {
+        to: "todos",
+        type: "message",
+        text: messageValue
+    };
+
+    const handleChangeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setMessageValue(event.target.value);
+    };
+
+    const handleClickMessage = async () => {
+        try {
+            await sendMessage(user, genericMessage);
+            setMessageValue("")
+        } catch (e) {
+            console.log(e);
+            setErrorText("Erro ao carregar dados!")
+        }
+    }
+
     return (
         <>
             <MainFooter>
-                <TextInput rows={4} cols={10} placeholder="Esvreva aqui..." />
-                <SendButton>
+                <TextInput
+                    rows={4}
+                    cols={10}
+                    placeholder="Esvreva aqui..."
+                    onChange={handleChangeMessage}
+                    value={messageValue}
+                />
+                <SendButton onClick={handleClickMessage}>
                     <LuSend size={30} />
                 </SendButton>
             </MainFooter>
