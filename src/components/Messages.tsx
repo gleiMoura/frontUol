@@ -4,7 +4,7 @@ import { FC, useEffect, useRef } from "react";
 //hooks and functions
 import { useErrorMessage } from "../contexts/ErrorContext";
 import { useNavigate } from "react-router-dom";
-import { useFetchUsers } from "../hooks/useFetchMessages";
+import { useFetchMessages } from "../hooks/useFetchMessages";
 import useLocalStorage from "../hooks/useLocalSorage";
 import { updateParcipant } from "../services/statusService";
 //components
@@ -13,15 +13,10 @@ import { SkeletonMessages } from "./SkeletonMessages";
 
 export const MessagesComponent: FC = () => {
     const navigate = useNavigate();
-    const { setErrorText } = useErrorMessage();
+    const { errorText, setErrorText } = useErrorMessage();
     const { value: user } = useLocalStorage("name");
-    const { messages, loadingMessages, error } = useFetchUsers(user);
+    const { messages, loadingMessages } = useFetchMessages(user);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
-    if (error || !user) {
-        setErrorText(error ?? "Ocorreu um erro desconhecido!");
-        navigate("/")
-    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -30,6 +25,12 @@ export const MessagesComponent: FC = () => {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+        if (errorText === "Erro ao carregar dados!") {
+            navigate("/");
+        }
+    }, [errorText])
 
     useEffect(() => {
         const updateUser = setInterval(async () => {
