@@ -12,7 +12,7 @@ export const useCreateName = () => {
             await createUser(name);
         } catch (e: any) {
             console.log("erro", e)
-            setErrorText(e?.response?.data[0].message || e?.response?.data || 'Erro inesperado. Tente novamente mais tarde!');
+            setErrorText(e?.response?.data[0]?.message || e?.response?.data || 'Erro inesperado. Tente novamente mais tarde!');
         } finally {
             setLoadingName(false);
         }
