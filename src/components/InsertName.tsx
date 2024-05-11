@@ -1,7 +1,7 @@
 //react
 import styled from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
-import { FC, ChangeEvent, KeyboardEvent, useState } from "react";
+import { FC, ChangeEvent, KeyboardEvent, useState, useEffect } from "react";
 import { StyleSheetManager } from "styled-components";
 //hooks
 import useLocalStorage from "../hooks/useLocalSorage";
@@ -11,10 +11,17 @@ import { useCreateName } from "../hooks/useCreateName";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
-    const { errorText } = useErrorMessage();
+    const { errorText, setErrorText } = useErrorMessage();
     const { loadingName, create } = useCreateName();
     const [name, setName] = useState("");
     const { setDataInLocalStorage } = useLocalStorage("");
+
+    useEffect(() => {
+        setDataInLocalStorage("name", "");
+        setTimeout(() => {
+            setErrorText("");
+        }, 3000);
+    }, []);
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
