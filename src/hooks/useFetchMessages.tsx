@@ -9,22 +9,23 @@ export const useFetchMessages = (user: string) => {
     const [loadingMessages, setLoadingMessages] = useState(true);
     const { setErrorText } = useErrorMessage();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response: AxiosResponse = await fetchMessages(user);
-                setMessages(response.data);
-            } catch (e) {
-                console.log(e)
-                setErrorText('Erro ao carregar dados!');
-                setMessages([]);
-            } finally {
-                setLoadingMessages(false);
-            }
-        };
+    const fetchData = async () => {
+        try {
+            const response: AxiosResponse = await fetchMessages(user);
+            setMessages(response.data);
+        } catch (e) {
+            console.log(e)
+            setErrorText('Erro ao carregar dados!');
+            setMessages([]);
+        } finally {
+            setLoadingMessages(false);
+        }
+    };
 
+
+    useEffect(() => {
         setInterval(fetchData, 3000)
     }, []);
 
     return { messages, loadingMessages }
-}
+};
