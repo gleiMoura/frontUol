@@ -1,6 +1,6 @@
 //react
 import styled from "styled-components";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 //hooks and functions
 import { useErrorMessage } from "../contexts/ErrorContext";
 import { useNavigate } from "react-router-dom";
