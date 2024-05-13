@@ -1,6 +1,8 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import styled from "styled-components";
 import { IoPeopleSharp, IoPersonCircleSharp } from "react-icons/io5";
+import { useFetchParticipants } from "../hooks/useFetchParticipants";
+import { userType } from "../interfaces/messageInterface";
 
 
 interface ContactProp {
@@ -9,43 +11,58 @@ interface ContactProp {
 }
 
 export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) => {
+    const { participants, loadingUsers } = useFetchParticipants();
+
+    console.log(participants)
 
     const handleClosePopUp = () => {
         setOpenContact(false);
     };
 
-    return (
-        <>
+    if (loadingUsers || !participants) {
+        return <>
             <MyContactPopUp popUpOpened={openContact} onClick={handleClosePopUp} />
-            <PopUp>
-                <Title>
-                    <h1>
-                        Escolha um contato para enviar mensagem.
-                    </h1>
-                </Title>
-                <div className="everybody">
-                    <Button>
-                        <div className="content">
-                            <IoPeopleSharp className="icon" />
-                            <p>Todos</p>
-                        </div>
-                        <div className="checked">
-                            checked
-                        </div>
-                    </Button>
-                    <Button>
-                        <div className="content">
-                            <IoPersonCircleSharp className="icon" />
-                            <p>Pedro</p>
-                        </div>
-                        <div className="checked">
-                            checked
-                        </div>
-                    </Button>
-                </div>
-            </PopUp >
+            <p>Loading...</p>
         </>
-    )
+    } else {
+        return (
+            <>
+                <MyContactPopUp popUpOpened={openContact} onClick={handleClosePopUp} />
+                <PopUp>
+                    <Title>
+                        <h1>
+                            Escolha um contato para enviar mensagem.
+                        </h1>
+                    </Title>
+                    <div className="everybody">
+                        <Button>
+                            <div className="content">
+                                <IoPeopleSharp className="icon" />
+                                <p>Todos</p>
+                            </div>
+                            <div className="checked">
+                                checked
+                            </div>
+                        </Button>
+                        {participants?.map((user: userType) => {
+                            console.log(user)
+                            return (
+                                <Button>
+                                    <div className="content">
+                                        <IoPersonCircleSharp className="icon" />
+                                        <p>{user.name}</p>
+                                    </div>
+                                    <div className="checked">
+                                        checked
+                                    </div>
+                                </Button>
+                            )
+                        })}
+                    </div>
+                </PopUp >
+            </>
+        )
+    }
 };
 
 const MyContactPopUp = styled.main<{ popUpOpened: boolean }>`
