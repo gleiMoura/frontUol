@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { FC } from "react"
 import styled from "styled-components";
 import { IoPeopleSharp, IoPersonCircleSharp } from "react-icons/io5";
 import { useFetchParticipants } from "../hooks/useFetchParticipants";
@@ -12,8 +12,6 @@ interface ContactProp {
 
 export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) => {
     const { participants, loadingUsers } = useFetchParticipants();
-
-    console.log(participants)
 
     const handleClosePopUp = () => {
         setOpenContact(false);
