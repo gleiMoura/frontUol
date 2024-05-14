@@ -10,7 +10,7 @@ export const InsertNamePage: FC = () => {
     return (
         <>
             <MyInsertNamePage>
-                <HeaderComponent />
+                <HeaderComponent setOpenContact={() => false} />
                 <InsertName />
             </MyInsertNamePage>
 
