@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IoPeopleSharp, IoPersonCircleSharp } from "react-icons/io5";
 import { useFetchParticipants } from "../hooks/useFetchParticipants";
 import { userType } from "../interfaces/messageInterface";
-
+import { GenericSkeleton } from "./GenericSkeleton";
 
 interface ContactProp {
     openContact: boolean;
@@ -17,21 +17,31 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
         setOpenContact(false);
     };
 
-    if (loadingUsers || !participants) {
+    if (loadingUsers && !participants) {
         return <>
             <MyContactPopUp popUpOpened={openContact} onClick={handleClosePopUp} />
-            <p>Loading...</p>
+            <PopUp>
+                <Header>
+                    <h1>
+                        Escolha um contato para enviar mensagem.
+                    </h1>
+                </Header>
+                <div className="everybody">
+                    <GenericSkeleton height={40} marginTop="5px" number={6} />
+                </div>
+            </PopUp>
         </>
     } else {
         return (
             <>
                 <MyContactPopUp popUpOpened={openContact} onClick={handleClosePopUp} />
                 <PopUp>
-                    <Title>
+                    <Header>
                         <h1>
                             Escolha um contato para enviar mensagem.
                         </h1>
-                    </Title>
+                        <SearchContact placeholder="Ache um contato..." />
+                    </Header>
                     <div className="everybody">
                         <Button>
                             <div className="content">
@@ -70,6 +80,7 @@ const MyContactPopUp = styled.main<{ popUpOpened: boolean }>`
     background-color: rgba(0, 0, 0, 0.6);
     display: ${(props) => props.popUpOpened ? "block" : "none"};
     font-size: 1rem;
+    cursor: pointer;
 `;
 
 const PopUp = styled.div`
@@ -87,17 +98,20 @@ const PopUp = styled.div`
     }
 `;
 
-const Title = styled.header`
+const Header = styled.header`
     width: 100%;
-    height: 70px;
+    min-height: 20vh;
     padding: 10px;
     box-sizing: border-box;
     font-size: 1.2rem;
     font-weight: 600;
     font-family: 'Roboto';
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Button = styled.div`
@@ -123,4 +137,14 @@ const Button = styled.div`
         font-size: 2rem;
         margin-right: 10px;
     }
+`;
+
+const SearchContact = styled.input`
+    width: 60%;
+    height: 30px;
+    margin-top: 20px;
+    padding: 5px;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Roboto';
 `;
