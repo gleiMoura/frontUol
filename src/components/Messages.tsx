@@ -28,7 +28,7 @@ export const MessagesComponent: FC = () => {
             try {
                 await updateParcipant(user);
             } catch (e) {
-                setErrorText("Não foi possível manter a conexão.");
+                setErrorText("Não foi possível manter a conexão. Entre com outro nome.");
                 clearInterval(intervalUpdate);
                 navigate("/")
             }
