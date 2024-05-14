@@ -53,7 +53,6 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                             </div>
                         </Button>
                         {participants?.map((user: userType) => {
-                            console.log(user)
                             return (
                                 <Button>
                                     <div className="content">
