@@ -11,17 +11,16 @@ import { useCreateName } from "../hooks/useCreateName";
 
 export const InsertName: FC = () => {
     const navigate = useNavigate();
-    const { errorText, setErrorText } = useErrorMessage();
-    const { loadingName, create } = useCreateName();
+    const { errorText } = useErrorMessage();
+    const { loadingName, create, created, setCreated } = useCreateName();
     const [name, setName] = useState("");
-    const { setDataInLocalStorage } = useLocalStorage("");
+    const { setDataInLocalStorage } = useLocalStorage("name");
+
+    console.log(created)
 
     useEffect(() => {
         setDataInLocalStorage("name", "");
-        setTimeout(() => {
-            setErrorText("");
-        }, 3000);
-    }, [errorText]);
+    }, []);
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -30,9 +29,9 @@ export const InsertName: FC = () => {
     const handleEnterKey = async (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             await create(name);
-            !errorText &&
-                setDataInLocalStorage("name", name);
-            navigate("/home");
+            if (created === "created") {
+                navigate('/home');
+            }
         }
     };
 
@@ -54,8 +53,9 @@ export const InsertName: FC = () => {
                         <Button
                             onClick={async () => {
                                 await create(name);
-                                setDataInLocalStorage("name", name);
-                                navigate("/home")
+                                if (created === "created") {
+                                    navigate('/home');
+                                }
                             }}
                             disabled={loadingName || !name}
                         >
