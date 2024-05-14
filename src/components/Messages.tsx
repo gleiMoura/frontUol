@@ -9,7 +9,7 @@ import useLocalStorage from "../hooks/useLocalSorage";
 import { updateParcipant } from "../services/statusService";
 //components
 import { Message } from "./Message";
-import { SkeletonMessages } from "./SkeletonMessages";
+import { GenericSkeleton } from "./GenericSkeleton";
 
 export const MessagesComponent: FC = () => {
     const navigate = useNavigate();
@@ -29,6 +29,7 @@ export const MessagesComponent: FC = () => {
                 await updateParcipant(user);
             } catch (e) {
                 setErrorText("Não foi possível manter a conexão.");
+                console.log(e)
                 navigate("/")
             }
         }, 5000);
@@ -37,7 +38,7 @@ export const MessagesComponent: FC = () => {
     if (loadingMessages) {
         return (
             <MainMessages>
-                <SkeletonMessages />
+                <GenericSkeleton number={15} marginTop="5px" height={40} />
             </MainMessages>
         )
     } else {
