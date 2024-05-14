@@ -13,7 +13,7 @@ export const GenericSkeleton: FC<GenericSkeletonProp> = ({ number, marginTop, he
         <>
             {
                 Array.from({ length: number }, (_, index) => (
-                    <SkeletonBox>
+                    <SkeletonBox key={index}>
                         <Skeleton style={{ marginTop: `${marginTop}` }} variant="rectangular" width={'100%'} height={height} key={index} />
                     </SkeletonBox>
                 ))
