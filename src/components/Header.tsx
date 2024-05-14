@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../assets/images/logo.png";
 import { IoPeople } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
     setOpenContact: (openContact: boolean) => void;
@@ -15,7 +16,9 @@ export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact }) => {
     return (
         <>
             <MainHeader>
-                <Logo src={logo} alt="logo" />
+                <Link to={'/'}>
+                    <Logo src={logo} alt="logo" />
+                </Link>
                 <ContactsButton onClick={handleOpenContact}>
                     <IoPeople size={30} className="icon" />
                 </ContactsButton>
@@ -32,6 +35,10 @@ const MainHeader = styled.header`
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    a {
+        height: 100%;
+    }
 `;
 
 const Logo = styled.img`
@@ -40,9 +47,9 @@ const Logo = styled.img`
 
 const ContactsButton = styled.div`
     height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #000;        
+    color: #000;     
+    cursor: pointer;
 `
