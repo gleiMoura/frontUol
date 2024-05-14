@@ -1,6 +1,7 @@
 import { FC } from "react"
 import styled from "styled-components";
 import { IoPeopleSharp, IoPersonCircleSharp } from "react-icons/io5";
+import { IoIosUnlock, IoIosLock } from "react-icons/io";
 import { useFetchParticipants } from "../hooks/useFetchParticipants";
 import { userType } from "../interfaces/messageInterface";
 import { GenericSkeleton } from "./GenericSkeleton";
@@ -37,9 +38,7 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                 <MyContactPopUp popUpOpened={openContact} onClick={handleClosePopUp} />
                 <PopUp>
                     <Header>
-                        <h1>
-                            Escolha um contato para enviar mensagem.
-                        </h1>
+                        <h1>Escolha um contato para enviar mensagem.</h1>
                         <SearchContact placeholder="Ache um contato..." />
                     </Header>
                     <div className="everybody">
@@ -65,6 +64,29 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                                 </Button>
                             )
                         })}
+                    </div>
+                    <Header>
+                        <h1>Escolha a visibilidade</h1>
+                    </Header>
+                    <div className="everybody">
+                        <Button>
+                            <div className="content">
+                                <IoIosUnlock className="icon" />
+                                <p>Público</p>
+                            </div>
+                            <div className="checked">
+                                checked
+                            </div>
+                        </Button>
+                        <Button>
+                            <div className="content">
+                                <IoIosLock className="icon" />
+                                <p>Privado</p>
+                            </div>
+                            <div className="checked">
+                                checked
+                            </div>
+                        </Button>
                     </div>
                 </PopUp >
             </>
