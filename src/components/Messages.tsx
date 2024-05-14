@@ -24,15 +24,19 @@ export const MessagesComponent: FC = () => {
     }, [errorText])
 
     useEffect(() => {
-        setInterval(async () => {
+        let intervalUpdate = setInterval(async () => {
             try {
                 await updateParcipant(user);
             } catch (e) {
                 setErrorText("Não foi possível manter a conexão.");
-                console.log(e)
+                clearInterval(intervalUpdate);
                 navigate("/")
             }
         }, 5000);
+
+        return () => {
+            clearInterval(intervalUpdate)
+        }
     }, [user])
 
     if (loadingMessages) {
