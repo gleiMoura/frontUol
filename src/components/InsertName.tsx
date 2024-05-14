@@ -16,8 +16,6 @@ export const InsertName: FC = () => {
     const [name, setName] = useState("");
     const { setDataInLocalStorage } = useLocalStorage("name");
 
-    console.log(created)
-
     useEffect(() => {
         setDataInLocalStorage("name", "");
     }, []);
