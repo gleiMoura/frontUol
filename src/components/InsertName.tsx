@@ -21,7 +21,7 @@ export const InsertName: FC = () => {
         setTimeout(() => {
             setErrorText("");
         }, 3000);
-    }, []);
+    }, [errorText]);
 
     const handleInputchange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
