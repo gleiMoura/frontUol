@@ -1,9 +1,9 @@
-import { FC, createContext, useContext, useState, ReactNode } from "react";
+import { FC, createContext, useContext, useState, ReactNode, Dispatch } from "react";
 import { messageType } from "../interfaces/messageInterface";
 
 interface MessageContextType {
     userMessage: messageType;
-    setUserMessage: (message: messageType) => void
+    setUserMessage: Dispatch<React.SetStateAction<messageType>>;
 };
 
 const defaultContextValue: MessageContextType = {
