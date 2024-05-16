@@ -5,7 +5,6 @@ import useLocalStorage from "./useLocalSorage";
 
 export const useCreateName = () => {
     const [loadingName, setLoadingName] = useState(false);
-    const [created, setCreated] = useState("");
     const { setErrorText } = useErrorMessage();
     const { setDataInLocalStorage } = useLocalStorage("name");
 
@@ -13,8 +12,8 @@ export const useCreateName = () => {
         try {
             setLoadingName(true)
             await createUser(name);
-            setCreated("created");
-            setDataInLocalStorage("name", name)
+            setDataInLocalStorage("name", name);
+            return "created"
         } catch (e: any) {
             console.log("erro", e)
             setErrorText(e?.response?.data[0]?.message || e?.response?.data || 'Erro inesperado. Tente novamente mais tarde!');
@@ -23,5 +22,5 @@ export const useCreateName = () => {
         }
     }, []);
 
-    return { loadingName, create, created, setCreated }
+    return { loadingName, create }
 };
