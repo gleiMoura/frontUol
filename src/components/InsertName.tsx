@@ -12,7 +12,7 @@ import { useCreateName } from "../hooks/useCreateName";
 export const InsertName: FC = () => {
     const navigate = useNavigate();
     const { errorText } = useErrorMessage();
-    const { loadingName, create, created, setCreated } = useCreateName();
+    const { loadingName, create } = useCreateName();
     const [name, setName] = useState("");
     const { setDataInLocalStorage } = useLocalStorage("name");
 
@@ -26,8 +26,8 @@ export const InsertName: FC = () => {
 
     const handleEnterKey = async (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            await create(name);
-            if (created === "created") {
+            const response = await create(name);
+            if (response === "created") {
                 navigate('/home');
             }
         }
@@ -51,9 +51,7 @@ export const InsertName: FC = () => {
                         <Button
                             onClick={async () => {
                                 await create(name);
-                                if (created === "created") {
-                                    navigate('/home');
-                                }
+                                navigate('/home');
                             }}
                             disabled={loadingName || !name}
                         >
