@@ -5,6 +5,7 @@ import { IoIosUnlock, IoIosLock } from "react-icons/io";
 import { useFetchParticipants } from "../hooks/useFetchParticipants";
 import { userType } from "../interfaces/messageInterface";
 import { GenericSkeleton } from "./GenericSkeleton";
+import { useMessageContext } from "../contexts/messageContext";
 
 interface ContactProp {
     openContact: boolean;
@@ -13,6 +14,7 @@ interface ContactProp {
 
 export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) => {
     const { participants, loadingUsers } = useFetchParticipants();
+    const { userMessage, setUserMessage } = useMessageContext();
 
     const handleClosePopUp = () => {
         setOpenContact(false);
@@ -42,7 +44,12 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                         <SearchContact placeholder="Ache um contato..." />
                     </Header>
                     <div className="everybody">
-                        <Button>
+                        <Button checked={userMessage.to === "todos"} onClick={() => {
+                            setUserMessage(prevState => ({
+                                ...prevState,
+                                to: "todos"
+                            }))
+                        }}>
                             <div className="content">
                                 <IoPeopleSharp className="icon" />
                                 <p>Todos</p>
@@ -53,7 +60,12 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                         </Button>
                         {participants?.map((user: userType) => {
                             return (
-                                <Button>
+                                <Button checked={user.name === userMessage.to} onClick={() => {
+                                    setUserMessage(prevState => ({
+                                        ...prevState,
+                                        to: user.name
+                                    }));
+                                }}>
                                     <div className="content">
                                         <IoPersonCircleSharp className="icon" />
                                         <p>{user.name}</p>
@@ -135,7 +147,7 @@ const Header = styled.header`
     flex-direction: column;
 `;
 
-const Button = styled.div`
+const Button = styled.div<{ checked: string }>`
     width: 100%;
     height: 40px;
     padding: 10px 15px;
@@ -157,6 +169,10 @@ const Button = styled.div`
     .icon{
         font-size: 2rem;
         margin-right: 10px;
+    };
+
+    .checked {
+        display: ${(props) => props.checked ? "block" : "none"};
     }
 `;
 
