@@ -8,7 +8,7 @@ interface MessageContextType {
 
 const defaultContextValue: MessageContextType = {
     userMessage: {
-        to: "",
+        to: "todos",
         text: "",
         type: "message"
     },
@@ -23,7 +23,7 @@ export function useMessageContext() {
 
 export const MessageProvider: FC<{ children: ReactNode }> = ({ children }: any) => {
     const [userMessage, setUserMessage] = useState<messageType>({
-        to: "",
+        to: "todos",
         text: "",
         type: "message"
     });
