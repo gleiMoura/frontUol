@@ -2,10 +2,10 @@
 import styled from 'styled-components';
 import "./reset.css";
 //components
-import { HeaderComponent } from '../components/Header';
-import { MessagesComponent } from '../components/Messages';
-import { FooterComponent } from '../components/Footer';
-import { ContactPopUp } from '../components/ContactPopUp';
+import { HeaderComponent } from '../components/HomeHeaderComponent/Header';
+import { MessagesComponent } from '../components/HomeMessagesComponent/Messages';
+import { FooterComponent } from '../components/HomeFooterComponent/Footer';
+import { ContactPopUp } from '../components/ContactComponent/ContactComponent';
 import { useState } from 'react';
 
 export const Home: React.FC = () => {
