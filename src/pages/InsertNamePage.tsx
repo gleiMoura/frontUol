@@ -2,8 +2,8 @@
 import styled from "styled-components";
 import { FC } from "react";
 //components
-import { HeaderComponent } from "../components/Header";
-import { InsertName } from "../components/InsertName";
+import { HeaderComponent } from "../components/HomeHeaderComponent/Header";
+import { InsertName } from "../components/LoginComponent/InsertName";
 
 
 export const InsertNamePage: FC = () => {
