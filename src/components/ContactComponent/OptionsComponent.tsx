@@ -64,6 +64,8 @@ const PopUp = styled.div`
     max-width: 500px;
     height: 100vh;
     background-color: #fff;
+    font-size: 1rem;
+    font-family: 'Roboto';
 `;
 
 const Contacts = styled.div`
