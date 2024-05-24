@@ -4,14 +4,21 @@ import { FaCheck } from "react-icons/fa";
 
 interface OptionButtonProp {
     checked: boolean,
-    handleOnclick: MouseEventHandler<HTMLDivElement>,
+    handleOnclick: MouseEventHandler<HTMLButtonElement>,
     icon: ReactNode,
-    name: string
+    name: string,
+    disabled: boolean
 }
 
-export const OptionButton: FC<OptionButtonProp> = ({ checked, handleOnclick, icon, name }) => {
+export const OptionButton: FC<OptionButtonProp> = ({
+    checked,
+    handleOnclick,
+    icon,
+    name,
+    disabled
+}) => {
     return (
-        <Button checked={checked} onClick={handleOnclick}>
+        <Button checked={checked} onClick={handleOnclick} disabled={disabled}>
             <div className="content">
                 <div className="icon">
                     {icon}
@@ -25,12 +32,14 @@ export const OptionButton: FC<OptionButtonProp> = ({ checked, handleOnclick, ico
     )
 };
 
-const Button = styled.div<{ checked: boolean }>`
+const Button = styled.button<{ checked: boolean }>`
     width: 100%;
     height: 40px;
     padding: 10px 15px;
     box-sizing: border-box;
     margin-top: 5px;
+    border: none;
+    background-color: #fff;
     font-size: 1rem;
     font-family: 'Roboto';
     cursor: pointer;
