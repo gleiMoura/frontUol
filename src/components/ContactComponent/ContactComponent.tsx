@@ -67,18 +67,17 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                             disabled={false}
                         />
                         {participants?.map((user: userType) => {
-                            if (user.name === userName && participants.length === 1) {
 
-                                return (
-                                    <OptionButton
-                                        checked={false}
-                                        handleOnclick={handleOnclickParticipant("")}
-                                        icon={<PiEmptyFill />}
-                                        name={"Você está sozinho na sala :("}
-                                        disabled
-                                    />
-                                )
-                            }
+                            (user.name === userName && participants.length === 1) &&
+                                <OptionButton
+                                    checked={false}
+                                    handleOnclick={handleOnclickParticipant("")}
+                                    icon={<PiEmptyFill />}
+                                    name={"Você está sozinho na sala :("}
+                                    disabled
+                                />
+
+                            if (user.name === userName) return
 
                             return (
                                 <OptionButton
