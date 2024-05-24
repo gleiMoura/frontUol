@@ -3,12 +3,14 @@ import styled from "styled-components";
 import logo from "../../assets/images/logo.png";
 import { IoPeople } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../../hooks/useLocalSorage";
 
 interface HeaderProps {
     setOpenContact: (openContact: boolean) => void;
 }
 
 export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact }) => {
+    const { value: userName } = useLocalStorage("name")
     const handleOpenContact = () => {
         setOpenContact(true);
     }
@@ -19,6 +21,9 @@ export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact }) => {
                 <Link to={'/'}>
                     <Logo src={logo} alt="logo" />
                 </Link>
+                <UserName>
+                    Usuário: <span className="name">{userName}</span>
+                </UserName>
                 <ContactsButton onClick={handleOpenContact}>
                     <IoPeople size={30} className="icon" />
                 </ContactsButton>
@@ -53,3 +58,14 @@ const ContactsButton = styled.div`
     color: #000;     
     cursor: pointer;
 `
+
+const UserName = styled.p`
+    font-size: 0.8rem;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+
+    .name {
+        font-weight: 800;
+    }
+`;
