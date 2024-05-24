@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { FC } from "react";
 //components
-import { HeaderComponent } from "../components/HomeHeaderComponent/Header";
+import { HeaderComponent } from "../components/HeaderComponentHome/Header";
 import { InsertName } from "../components/LoginComponent/InsertName";
 
 
