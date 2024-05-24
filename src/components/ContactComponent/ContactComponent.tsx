@@ -1,12 +1,14 @@
 import { FC, MouseEventHandler } from "react"
 import { IoPeopleSharp, IoPersonCircleSharp } from "react-icons/io5";
 import { IoIosUnlock, IoIosLock } from "react-icons/io";
+import { PiEmptyFill } from "react-icons/pi";
 import { useFetchParticipants } from "../../hooks/useFetchParticipants";
 import { userType } from "../../interfaces/messageInterface";
 import { useMessageContext } from "../../contexts/messageContext";
 import { OptionsComponent } from "./OptionsComponent";
 import { GenericSkeleton } from "../GenericSkeleton";
 import { OptionButton } from "./OptionButton";
+import useLocalStorage from "../../hooks/useLocalSorage";
 
 interface ContactProp {
     openContact: boolean;
@@ -16,19 +18,20 @@ interface ContactProp {
 export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) => {
     const { participants, loadingUsers } = useFetchParticipants();
     const { userMessage, setUserMessage } = useMessageContext();
+    const { value: userName } = useLocalStorage("name")
 
     const handleClosePopUp = () => {
         setOpenContact(false);
     };
 
-    const handleOnclickParticipant = (name: string): MouseEventHandler<HTMLDivElement> => () => {
+    const handleOnclickParticipant = (name: string): MouseEventHandler<HTMLButtonElement> => () => {
         setUserMessage(prevState => ({
             ...prevState,
             to: name
         }))
     };
 
-    const handleOnclickVisibility = (type: "message" | "private_message"): MouseEventHandler<HTMLDivElement> => () => {
+    const handleOnclickVisibility = (type: "message" | "private_message"): MouseEventHandler<HTMLButtonElement> => () => {
         setUserMessage(prevState => ({
             ...prevState,
             type
@@ -61,14 +64,29 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                             handleOnclick={handleOnclickParticipant("todos")}
                             name="Todos"
                             icon={<IoPeopleSharp />}
+                            disabled={false}
                         />
                         {participants?.map((user: userType) => {
+                            if (user.name === userName && participants.length === 1) {
+
+                                return (
+                                    <OptionButton
+                                        checked={false}
+                                        handleOnclick={handleOnclickParticipant("")}
+                                        icon={<PiEmptyFill />}
+                                        name={"Você está sozinho na sala :("}
+                                        disabled
+                                    />
+                                )
+                            }
+
                             return (
                                 <OptionButton
                                     checked={user.name === userMessage.to}
                                     handleOnclick={handleOnclickParticipant(user.name)}
                                     icon={<IoPersonCircleSharp />}
                                     name={user.name}
+                                    disabled={false}
                                 />
                             )
                         })}
@@ -81,12 +99,14 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                             handleOnclick={handleOnclickVisibility("message")}
                             icon={<IoIosUnlock />}
                             name="Público"
+                            disabled={false}
                         />
                         <OptionButton
                             checked={userMessage.type === "private_message"}
                             handleOnclick={handleOnclickVisibility("private_message")}
                             icon={<IoIosLock />}
                             name="Privado"
+                            disabled={false}
                         />
                     </>
                 }
