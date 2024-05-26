@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useLocalStorage from "../../hooks/useLocalSorage";
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, KeyboardEvent } from "react";
 import { LuSend } from "react-icons/lu";
 import { sendMessage } from "../../services/messageService";
 import { useErrorMessage } from "../../contexts/ErrorContext";
@@ -11,7 +11,7 @@ export const FooterComponent: FC = () => {
     const { value: user }: { value: string } = useLocalStorage("name");
     const { setErrorText } = useErrorMessage();
 
-    const handleChangeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChangeMessage = (event: ChangeEvent<HTMLInputElement>) => {
         setUserMessage(prevState => ({
             ...prevState,
             text: event.target.value
@@ -29,15 +29,14 @@ export const FooterComponent: FC = () => {
             console.log(e);
             setErrorText("Erro ao carregar dados!")
         }
-    }
+    };
 
     return (
         <>
             <MainFooter>
                 <TextInput
-                    rows={4}
-                    cols={10}
                     placeholder="Esvreva aqui..."
+                    onKeyDown={async (e) => { e.key === "Enter" && handleClickMessage() }}
                     onChange={handleChangeMessage}
                     value={userMessage.text}
                 />
@@ -60,14 +59,15 @@ const MainFooter = styled.footer`
     align-items: center;
 `;
 
-const TextInput = styled.textarea`
+const TextInput = styled.input`
     width: 50%;
     height: 40%;
     font-size: 1rem;
     border: none;
     outline: none;
     resize: none;
-    padding: 5px
+    padding: 5px;
+    font-family: 'Roboto';
 `;
 
 const SendButton = styled.div`
