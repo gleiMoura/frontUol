@@ -20,6 +20,7 @@ export const FooterComponent: FC = () => {
 
     const handleClickMessage = async () => {
         try {
+            if (userMessage.text === "") return;
             await sendMessage(user, userMessage);
             setUserMessage(prevState => ({
                 ...prevState,
