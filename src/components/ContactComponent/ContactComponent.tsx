@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from "react"
+import { FC, MouseEventHandler, useState, ChangeEvent } from "react"
 import { IoPeopleSharp, IoPersonCircleSharp } from "react-icons/io5";
 import { IoIosUnlock, IoIosLock } from "react-icons/io";
 import { PiEmptyFill } from "react-icons/pi";
@@ -19,6 +19,7 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
     const { participants, loadingUsers } = useFetchParticipants();
     const { userMessage, setUserMessage } = useMessageContext();
     const { value: userName } = useLocalStorage("name")
+    const [search, setSearch] = useState("");
 
     const handleClosePopUp = () => {
         setOpenContact(false);
@@ -38,6 +39,14 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
         }))
     };
 
+    const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.target.value);
+    };
+
+    const filteredParticipants = search ? participants?.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase())
+    ) : participants;
+
     if (loadingUsers && !participants) {
         return (
             <OptionsComponent
@@ -47,7 +56,6 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                 secondTitle="Escolha a visibilidade."
                 firstChildren={<GenericSkeleton height={40} marginTop="5px" number={4} />}
                 secondChildren={<GenericSkeleton height={40} marginTop="5px" number={2} />}
-                withInput
             />
         )
     } else {
@@ -57,6 +65,8 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                 openContact={openContact}
                 firstTitle="Escolha um contato para enviar mensagem."
                 secondTitle="Escolha a visibilidade."
+                handleChangeSearch={handleChangeSearch}
+                search={search}
                 firstChildren={
                     <>
                         <OptionButton
@@ -66,7 +76,7 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                             icon={<IoPeopleSharp />}
                             disabled={false}
                         />
-                        {participants?.map((user: userType) => {
+                        {filteredParticipants?.length ? filteredParticipants?.map((user: userType) => {
                             if (user.name === userName && participants.length === 1) {
                                 return (
                                     <OptionButton
@@ -90,7 +100,13 @@ export const ContactPopUp: FC<ContactProp> = ({ openContact, setOpenContact }) =
                                     disabled={false}
                                 />
                             )
-                        })}
+                        }) : <OptionButton
+                            checked={false}
+                            handleOnclick={handleOnclickParticipant("")}
+                            icon={<PiEmptyFill />}
+                            name={"Pesquisa não encontrada!"}
+                            disabled
+                        />}
                     </>
                 }
                 secondChildren={
