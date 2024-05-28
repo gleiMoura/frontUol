@@ -7,10 +7,10 @@ import useLocalStorage from "../../hooks/useLocalSorage";
 
 interface HeaderProps {
     setOpenContact: (openContact: boolean) => void;
+    name: string
 }
 
-export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact }) => {
-    const { value: userName } = useLocalStorage("name")
+export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact, name }) => {
     const handleOpenContact = () => {
         setOpenContact(true);
     }
@@ -22,7 +22,7 @@ export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact }) => {
                     <Logo src={logo} alt="logo" />
                 </Link>
                 <UserName>
-                    Usuário: <span className="name">{userName}</span>
+                    Usuário: <span className="name">{name}</span>
                 </UserName>
                 <ContactsButton onClick={handleOpenContact}>
                     <IoPeople size={30} className="icon" />
