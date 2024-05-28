@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { FC, ReactNode } from "react";
+import { SearchComponent } from "./SearchComponent";
+import { FC, ReactNode, ChangeEvent } from "react";
 
 interface OptionsComponentProp {
     handleClosePopUp: () => void;
+    handleChangeSearch?: (event: ChangeEvent<HTMLInputElement>) => void;
+    search?: string;
     openContact: boolean;
-    withInput: boolean;
+    withInput?: boolean;
     firstTitle: string,
     secondTitle: string,
     firstChildren: ReactNode;
@@ -12,8 +15,10 @@ interface OptionsComponentProp {
 }
 
 export const OptionsComponent: FC<OptionsComponentProp> = ({
-    openContact,
     handleClosePopUp,
+    handleChangeSearch,
+    search,
+    openContact,
     withInput,
     firstTitle,
     secondTitle,
@@ -28,7 +33,7 @@ export const OptionsComponent: FC<OptionsComponentProp> = ({
                     <h1>
                         {firstTitle}
                     </h1>
-                    {withInput && <SearchContact placeholder="Ache um contato..." />}
+                    {withInput && <SearchComponent handleChangeSearch={handleChangeSearch} search={search} />}
                 </Header>
                 <Contacts>
                     {firstChildren}
@@ -88,14 +93,4 @@ const Header = styled.header`
     align-items: center;
     display: flex;
     flex-direction: column;
-`;
-
-const SearchContact = styled.input`
-    width: 60%;
-    height: 30px;
-    margin-top: 20px;
-    padding: 5px;
-    outline: none;
-    font-size: 1rem;
-    font-family: 'Roboto';
 `;
