@@ -22,3 +22,30 @@
 # Description
 
 This front-end project simulates the classic chat platform "Pate Papo UOL," where users could engage in real-time conversations. With UOL API, you can chat with friends and meet new people. Experience a seamless and dynamic messaging environment designed for making connections and keeping conversations flowing.
+
+</br>
+
+## Features
+
+-   Create an participant (do login);
+-   When a participant enter in chat, a message of entrance start;
+-   Send a message to everyone;
+-   Send a message to a particular friend in public;
+-   Send a message to a particular friend in private;
+
+## Project Reference
+
+### Enter in Chat
+<p>When enter in chat you have to put you name. This name must have just letters and text without other kind of signs.</p>
+
+<img src="./src/assets/images/login.png" height="400px" />
+
+### Sending a message to Everyone
+<p>As pattern if you write a message and send it, this message will happen to everybody that is logged in chat as a white message.</p>
+
+<img src="./src/assets/images/escrevendo.png" height="400px" />
+<img src="./src/assets/images/enviado.png" height="400px" />
+
+
+
+
