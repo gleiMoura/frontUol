@@ -70,7 +70,6 @@ export const MessagesComponent: FC = () => {
 //styled-components
 const MainMessages = styled.section`
     width: 100%;
-    height: 80%;
     padding: 2vh 0;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0,0,0,0.20) inset;
