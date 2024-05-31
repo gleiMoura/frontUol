@@ -53,6 +53,7 @@ export const MessagesComponent: FC = () => {
                         return (
                             <Message
                                 key={message._id}
+                                _id={message._id}
                                 time={`(${message.time})`}
                                 text={message.text}
                                 from={message.from}
