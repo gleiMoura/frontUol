@@ -3,8 +3,6 @@ import styled from "styled-components";
 import logo from "../../assets/images/logo.png";
 import { IoPeople } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import useLocalStorage from "../../hooks/useLocalSorage";
-
 interface HeaderProps {
     setOpenContact: (openContact: boolean) => void;
     name: string
@@ -33,10 +31,12 @@ export const HeaderComponent: React.FC<HeaderProps> = ({ setOpenContact, name })
 }
 
 const MainHeader = styled.header`
-    width: 100%;
     height: 60px;
     background-color: white;
-
+    position: fixed;
+    top: 0;
+    right: 0;
+    left:0;
     display: flex;
     justify-content: space-around;
     align-items: center;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useLocalStorage from "../../hooks/useLocalSorage";
-import { ChangeEvent, FC, KeyboardEvent } from "react";
+import { ChangeEvent, FC } from "react";
 import { LuSend } from "react-icons/lu";
 import { sendMessage } from "../../services/messageService";
 import { useErrorMessage } from "../../contexts/ErrorContext";
@@ -50,11 +50,13 @@ export const FooterComponent: FC = () => {
 };
 
 const MainFooter = styled.footer`
-    width: 100%;
     height: 60px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.20) inset;
     background-color: white;
-
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left:0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -68,6 +70,7 @@ const TextInput = styled.input`
     outline: none;
     resize: none;
     padding: 5px;
+    box-sizing: border-box;
     font-family: 'Roboto';
 `;
 
