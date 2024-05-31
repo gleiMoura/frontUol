@@ -40,6 +40,7 @@ const MainHeader = styled.header`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    box-shadow:  0px 2px 1px rgba(0,0,0,0.20);
 
     a {
         height: 100%;

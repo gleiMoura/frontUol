@@ -51,7 +51,7 @@ export const FooterComponent: FC = () => {
 
 const MainFooter = styled.footer`
     height: 60px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.20) inset;
+    box-shadow: 0px 2px 0px 2px rgba(0,0,0,0.20) inset;
     background-color: white;
     position: fixed;
     bottom: 0;
