@@ -11,18 +11,19 @@ interface MessageButtonsProps {
     type?: string;
     from?: string;
     to?: string;
-    messageId?: string
+    messageId?: string;
+    setEditBoolean: (editMessage: boolean) => void;
 };
 
-export const MessageButtons: FC<MessageButtonsProps> = ({ type, from, to, messageId }) => {
+export const MessageButtons: FC<MessageButtonsProps> = ({ type, from, to, messageId, setEditBoolean }) => {
     const { value: userName } = useLocalStorage("name");
-    const [appear, setAppear] = useState(true);
+    const [appearButtons, setAppearButtons] = useState(true);
     const [loadingDelete, setLoadingDelete] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setAppear(false)
-        }, 36000000);
+            setAppearButtons(false)
+        }, 180000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -38,18 +39,21 @@ export const MessageButtons: FC<MessageButtonsProps> = ({ type, from, to, messag
         }
     };
 
-    if ((type !== "status" && (from === userName || to === userName) && appear)) {
+    if ((type !== "status" && (from === userName || to === userName) && appearButtons)) {
         return (
             <Buttons>
-                <Tooltip title="Exclusão e deleção duram apenas 10 minutos" arrow placement="top-start">
+                <Tooltip title="Você tem apenas 3 minutos para deletar ou excluir uma mensagem." arrow placement="top-start">
                     <Container style={{
+                        height: "30px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        gap: "20px"
+                        gap: "10px",
+                        background: "#AAA",
+                        borderRadius: "10px"
                     }}>
-                        <div className="edit-button button-style">
-                            {false ? <IoReloadCircle className="rotate" /> : <MdEdit />}
+                        <div className="edit-button button-style" onClick={() => { setEditBoolean(true) }}>
+                            <MdEdit />
                         </div>
                         <div className="delete-button button-style" onClick={handleDeleteMessage}>
                             {loadingDelete ? <IoReloadCircle className="rotate" /> : <MdDelete />}
