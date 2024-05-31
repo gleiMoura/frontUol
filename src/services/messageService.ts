@@ -23,4 +23,16 @@ export const sendMessage = async (user: string, message: messageType) => {
     return (
         await api.post('/messages', message, config)
     )
+};
+
+export const deleteMessage = async (user: string, id?: string) => {
+    const config = {
+        headers: {
+            'User': user
+        }
+    };
+
+    return (
+        await api.delete(`/messages/${id}`, config)
+    );
 }
