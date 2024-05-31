@@ -32,27 +32,41 @@ This front-end project simulates the classic chat platform "Pate Papo UOL," wher
 -   Send a message to everyone;
 -   Send a message to a friend in public;
 -   Send a message to a friend in private;
+-   Edit a message
 
 ## Project Reference
 
 ### Enter in Chat
 <p>When enter in chat you have to put you name. This name must have just letters and text without other kind of signs.</p>
 
-<img src="./src/assets/images/login.png" height="400px" />
+<img src="./public/login.png" height="400px" />
 
 ### Sending a message to Everyone
 <p>As pattern if you write a message and send it, this message will happen to everybody that is logged in chat as a white message.</p>
 
-<img src="./src/assets/images/escrevendo.png" height="400px" />
-<img src="./src/assets/images/enviado.png" height="400px" />
+<img src="./public/publicMessage.png" height="400px" />
 
-### Sending a message to a friend as public
+### Sending a message to a contact as public
 <p>You can change the message configuration in icon positioned at top right. If the room was empty, will appear the message "Você está sozinho na sala".</p>
 
-<img src="./src/assets/images/options.png" height="400px" />
-<br />
-<p> You can choose a person to send your message </p>
-<img src="./src/assets/images/choose a person.png" height="400px" />
-<img src="./src/assets/images/sendAMessage.png" height="400px" />
+<img src="./public/publicMessageToAPerson.png" height="400px" />
+<img src="./public/sendingPublicMessageTo.png" height="400px" />
 
-### Sending a message to a friend as private
+<br />
+
+### Sending a message to a contact as private
+<p>You can choose a person on Contact List to send a private message</p>
+<img src="./public/privateMessageToAPerson.png" height="400px" />
+<img src="./public/sendingPrivateMessageTo.png" height="400px" />
+
+### Editing a message
+<p>You can edit a message. The time to do it is 3 minutes, after that is impossible edit a message.</p>
+<img src="./public/startingToEditing.png" height="300px" />
+<img src="./public/changingText.png" height="300px" />
+<img src="./public/editedText.png" height="300px" />
+
+### Delete a message
+<p>You can delete a message. The time to do it is 3 minutes, after that is impossible delete a message.</p>
+<img src="./public/removeMessage.png" height="400px" />
+
+
