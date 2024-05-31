@@ -6,7 +6,7 @@ import { editMessage } from "../../services/messageService";
 import useLocalStorage from "../../hooks/useLocalSorage";
 import { useMessageContext } from "../../contexts/messageContext";
 
-export const Message: FC<messageType> = ({ time, text, from, to, type, _id }) => {
+export const Message: FC<messageType> = ({ time, text, from, to, type, _id, wasEdited }) => {
     const { value: userName } = useLocalStorage("name");
     const { userMessage } = useMessageContext();
     const [editBoolean, setEditBoolean] = useState(false);
@@ -51,6 +51,11 @@ export const Message: FC<messageType> = ({ time, text, from, to, type, _id }) =>
                             <input type="text" value={editText} onChange={handleEditText} />
                         }
                     </p>
+                    {wasEdited &&
+                        <p className="edited">
+                            Editado
+                        </p>
+                    }
                 </Text>
                 {editBoolean &&
                     <EditButtons>
@@ -111,6 +116,8 @@ const Information = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
+
     input {
         outline: none;
         border: solid 1px #DEDEDE;
@@ -131,12 +138,24 @@ const Information = styled.div`
         border-radius: 5px;
         cursor: pointer;
     }
+
+    .edited {
+        font-size: 0.7rem;
+        font-family: 'Roboto';
+        font-style: italic;
+        font-weight: 300;
+        position: absolute;
+        right: 4px;
+        bottom: 5px;
+    }
 `;
 
 const Text = styled.div`
     width: 90%;
     display: flex;
     margin: 10px;
+
+
 `;
 
 const EditButtons = styled.div`
