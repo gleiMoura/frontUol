@@ -38,6 +38,7 @@ const MainHeader = styled.header`
     right: 0;
     left:0;
     display: flex;
+    z-index: 99;
     justify-content: space-around;
     align-items: center;
     box-shadow:  0px 2px 1px rgba(0,0,0,0.20);
