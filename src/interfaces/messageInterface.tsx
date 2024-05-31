@@ -4,7 +4,8 @@ export interface messageType {
     text?: string,
     from?: string,
     to?: string,
-    type?: 'status' | 'message' | 'private_message'
+    type?: 'status' | 'message' | 'private_message',
+    wasEdited?: boolean
 };
 
 export interface userType {

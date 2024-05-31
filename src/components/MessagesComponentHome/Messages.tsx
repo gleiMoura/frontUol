@@ -59,6 +59,7 @@ export const MessagesComponent: FC = () => {
                                 from={message.from}
                                 to={message.to}
                                 type={message.type}
+                                wasEdited={message.wasEdited}
                             />
                         )
                     })}
