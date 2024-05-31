@@ -54,6 +54,7 @@ export const OptionsComponent: FC<OptionsComponentProp> = ({
 
 const MyContactPopUp = styled.main<{ popUpOpened: boolean }>`
     position: fixed;
+    z-index: 111;
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
@@ -64,6 +65,7 @@ const MyContactPopUp = styled.main<{ popUpOpened: boolean }>`
 
 const PopUp = styled.div`
     position: fixed;
+    z-index: 222;
     right: 0;
     width: 75%;
     max-width: 500px;
