@@ -1,23 +1,27 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { messageType } from "../../interfaces/messageInterface";
+import { MessageButtons } from "./MessageButtons";
 
-export const Message: FC<messageType> = ({ time, text, from, to, type }) => {
+export const Message: FC<messageType> = ({ time, text, from, to, type, _id }) => {
     return (
         <MessageComponent type={type}>
-            <p>
-                <span className="time">{time}</span>
-            </p>
-            <p>
-                <span className="from_or_to">{from}</span> {` `}
-                {type === "status" ? "" :
-                    <>
-                        <span className="message"> para </span>
-                        <span className="from_or_to">{to}</span> {`: `}
-                    </>
-                }
-                <span className="message">{text}</span>
-            </p>
+            <Text>
+                <p>
+                    <span className="time">{time}</span>
+                </p>
+                <p>
+                    <span className="from_or_to">{from}</span> {` `}
+                    {type === "status" ? "" :
+                        <>
+                            <span className="message"> para </span>
+                            <span className="from_or_to">{to}</span> {`: `}
+                        </>
+                    }
+                    <span className="message">{text}</span>
+                </p>
+            </Text>
+            <MessageButtons type={type} from={from} to={to} messageId={_id} />
         </MessageComponent>
     )
 };
@@ -35,9 +39,9 @@ const MessageComponent = styled.div<messageType>`
     }};
 
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 0 30px;
     box-sizing: border-box;
     flex: none;
     
@@ -45,7 +49,6 @@ const MessageComponent = styled.div<messageType>`
         color: #AAA;
         margin-right: 15px;
     }
-
 
     .from_or_to {
         color: #000;
@@ -60,3 +63,6 @@ const MessageComponent = styled.div<messageType>`
     }
 `;
 
+const Text = styled.div`
+    display: flex;
+`;
