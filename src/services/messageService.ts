@@ -35,4 +35,16 @@ export const deleteMessage = async (user: string, id?: string) => {
     return (
         await api.delete(`/messages/${id}`, config)
     );
+};
+
+export const editMessage = async (user: string, message: messageType, id: string | undefined) => {
+    const config = {
+        headers: {
+            'User': user
+        }
+    };
+
+    return (
+        await api.put(`/messages/${id}`, message, config)
+    );
 }
