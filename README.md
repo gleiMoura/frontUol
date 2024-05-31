@@ -30,8 +30,8 @@ This front-end project simulates the classic chat platform "Pate Papo UOL," wher
 -   Create an participant (do login);
 -   When a participant enter in chat, a message of entrance start;
 -   Send a message to everyone;
--   Send a message to a particular friend in public;
--   Send a message to a particular friend in private;
+-   Send a message to a friend in public;
+-   Send a message to a friend in private;
 
 ## Project Reference
 
@@ -46,6 +46,13 @@ This front-end project simulates the classic chat platform "Pate Papo UOL," wher
 <img src="./src/assets/images/escrevendo.png" height="400px" />
 <img src="./src/assets/images/enviado.png" height="400px" />
 
+### Sending a message to a friend as public
+<p>You can change the message configuration in icon positioned at top right. If the room was empty, will appear the message "Você está sozinho na sala".</p>
 
+<img src="./src/assets/images/options.png" height="400px" />
+<br />
+<p> You can choose a person to send your message </p>
+<img src="./src/assets/images/choose a person.png" height="400px" />
+<img src="./src/assets/images/sendAMessage.png" height="400px" />
 
-
+### Sending a message to a friend as private
