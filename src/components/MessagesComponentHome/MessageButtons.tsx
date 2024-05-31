@@ -39,7 +39,7 @@ export const MessageButtons: FC<MessageButtonsProps> = ({ type, from, to, messag
         }
     };
 
-    if ((type !== "status" && (from === userName || to === userName) && appearButtons)) {
+    if ((type !== "status" && (from === userName) && appearButtons)) {
         return (
             <Buttons>
                 <Tooltip title="Você tem apenas 3 minutos para deletar ou excluir uma mensagem." arrow placement="top-start">
