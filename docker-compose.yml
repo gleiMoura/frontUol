@@ -1,0 +1,12 @@
+version: "3"
+services:
+  react-app:
+    build: .
+    ports: 
+      - "8080:8080"
+    networks: [react-network]
+
+networks:
+  react-network:
+    driver: bridge
+    
