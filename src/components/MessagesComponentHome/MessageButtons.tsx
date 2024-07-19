@@ -15,7 +15,7 @@ interface MessageButtonsProps {
     setEditBoolean: (editMessage: boolean) => void;
 };
 
-export const MessageButtons: FC<MessageButtonsProps> = ({ type, from, to, messageId, setEditBoolean }) => {
+export const MessageButtons: FC<MessageButtonsProps> = ({ type, from, messageId, setEditBoolean }) => {
     const { value: userName } = useLocalStorage("name");
     const [appearButtons, setAppearButtons] = useState(true);
     const [loadingDelete, setLoadingDelete] = useState(false);
